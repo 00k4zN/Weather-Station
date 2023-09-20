@@ -1,108 +1,23 @@
-ÖZET
+SUMMARY
 
-Hava istasyonu, arduino ve raspberry  pi kullanarak lokal hava durumunu tek bir arayüzde sıcaklığı, yağışı , rüzgar hızını ve basıncı sayısal verilerle görmemizi sağlıyor. Proto Shield’ın üzerine yerleştirdiğimiz DHT22 sensörüyle sıcaklık ve nemi, BMP180 basınç sensörüyle sıcaklık ve basıncı ölçebiliyoruz. Arduino ve raspberry pi arasında iletişimi sağlamak için NRF24L01 wireless modülünü tercih ettim. Bu şekilde dış mekan sistemini yani arduinoyu balkonumuza kurduğumuzda raspberry arayüzünü başka bir odada rahatlıkla kullanabiliyoruz. NRF24L01 modülünün menzili 100 metre civarı olduğundan 3+1’lik bir evin bütün odalarından rahatlıkla sinyal alabiliyoruz.  Arduinoya bağladığımız 12 cm’lik bir kasa fanını rüzgar ölçüm cihazı olarak kullanıyoruz. Meteorolojinin kullandığı kilometre, saat gibi verileri kullanmadığımız için kasa fanından  elde ettiğimiz veriler ham ve bilimsel olmaktan uzak. Yine de projeye işlevsellik katması açısından kullanmayı tercih ettim. Kasa fanına monte ettiğimiz plastik kaşıklar rüzgarda döndükçe fan içindeki mıknatıs bir miktar elektrik üretecek ve bu voltaj değişimini 10 bitlik bir çözünürlükte yani 0 ile  1023 arasında bir sayısal değere tekabül edecek şekilde  göreceğiz. Örneğin, 0 ile 100 bit arasındaysa sakin, 100 ile 250 bit arasındaysa rüzgarlı olarak  karşımıza çıkacaktır. 
+Using Arduino and Raspberry Pi, this project aims to display local weather conditions in a single interface, providing numerical data for temperature, precipitation, wind speed, and pressure. The DHT22 sensor mounted on the Proto Shield allows us to measure temperature and humidity, while the BMP180 pressure sensor measures temperature and pressure in Pascal units. To facilitate communication between Arduino and Raspberry Pi, the NRF24L01 wireless module was chosen. This setup enables the use of the outdoor system (Arduino) on the balcony while comfortably accessing the Raspberry Pi interface in another room, given the NRF24L01 module's range of approximately 100 meters, making it suitable for a 3+1 bedroom house. A 12 cm case fan connected to the Arduino serves as a wind measurement device. Although the data obtained from the case fan lacks the precision of metrics used in meteorology, such as kilometers and hours, it was included in the project for its functional contribution. Plastic spoons mounted on the case fan will generate some electricity as they rotate in the wind, and this voltage change will be observed in a 10-bit resolution, corresponding to a numerical value between 0 and 1023. For example, if the value falls between 0 and 100 bits, it indicates calm weather, while a range of 100 to 250 bits suggests windy conditions.
 
+INTRODUCTION – What, Where, How Did I Use?
 
+We obtained the air temperature using the DHT22 sensor placed on the Arduino Proto Shield.
+With the help of the BMP180 pressure sensor mounted on the Proto Shield, we displayed air pressure in Pascal units.
+We attached plastic spoons to the case fan, and as they rotate, they generate a voltage change that corresponds to a numerical value in a 10-bit resolution, ranging from 0 to 1023. To mount the plastic spoons on the case fan, we used a cover and a silicone gun.
+We established the connection between the sensors and the case fan with the Arduino Uno using the Arduino Proto Shield.
+I loaded the libraries and necessary codes for the sensors onto the Arduino Uno R3 model. After attaching the Proto Shield to the Arduino Uno, I used a 9-volt adapter to power the device.
+The NRF24L01 wireless module on the Proto Shield wirelessly transmits data received from the Arduino to the Raspberry Pi.
+I also added an NRF24L01 wireless module to the Raspberry Pi, allowing it to receive data from the Arduino. The Raspberry Pi processes this data using code found on GitHub and presents it as a weather interface.
 
-
-
-
-
-
-
-
-
-
-
-
-GİRİŞ – Neyi, Nerde, Nasıl Kullandım?
-
- Arduino Proto Shield üzerine yerleştirdiğim DHT22 sensörüyle havadaki sıcaklığı elde ettik.  
-
-
-Proto Shield’ın üstüne yerleştirdiğimiz diğer sensörümüz BMP180 basınç sensörü yardımıyla hava basıncını Pascal cinsinden yazdırdık.
- 
-
-
-Kasa fanına bağladığımız plastik kaşıklar döndükçe yarattığı voltaj değişimini 10 bitlik bir çözünürlükte yani 0-1023 aralığında bir sayıya tekabül edecek şekilde görmekteyiz. Plastik kaşıkları kasa fanına monte etmek için bir adet kapak ve silikon tabanca kullandım. 	
- 
-
-
-
-Sensörlerin ve kasa fanının Arduino uno ile bağlantısını Arduino Proto Shield yardımıyla yapıyoruz.
- 
-	
-
-
-
-
-
-
-
-Sensörlerin kütüphanelerini ve gerekli kodları Arduino uno r3 modeline yükledim. Proto Shield’ı arduino unoya taktıktan sonra cihazı çalıştırmak için 9 voltluk bir adaptör kullandım.
- 
-
-
-Proto Shield’a yerleştirdiğim NRF24L01 wireless modülü de arduinodan aldığım verileri raspberry pi’ya kablosuz olarak iletmektedir.
- 
-
-
-
-
-
-
-
-
-Raspberry pi’ye de bir adet NRF24L01 wireless modülü taktım. Böylece arduinodan rahat bir şekilde veri alabilmekte, bu verileri github’dan bulduğum kodlarla işleyip bir hava durumu arayüzü olarak göstermektedir.
- 
-
-
-
-Daha sonra NRF24L01 wireless modülünün raspberry pi ile bağlantısı aşağıdaki şekilde yapıldı.
- 
-
-
-
-Wireless modülündeki pinleri raspberry pi’deki ilgili pinlere bağlamak için aşağıdaki görselden yararlandım.
- 
-
-
-
-Kurulum için gerekli olan tüm şemaların ve kodların  olduğu github linkini de aşağıya ekliyorum:
-
-[https://github.com/meraklimaymun/minihavaistasyonu_v2]
-
-
-
-Arduino'da kullandığım nrf24l01 kütüphanesi linki:
-
+The NRF24L01 library used in Arduino can be found here:
 [https://github.com/nRF24/RF24]
 
-
-
-Arduino'da kullandığım BMP180 kütüphanesi linki:
-
+The BMP180 library used in Arduino can be found here:
 [https://github.com/sparkfun/BMP180_Breakout]
 
+CONCLUSION
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-SONUÇ
-
-Arduino verileri sorunsuz  bir şekilde raspberry pi’ya iletti. BMP180 basınç sensörünü lehimleyemediğim için basınç verilerini şimdilik alamadım. Buna rağmen proje sorunsuz bir şekilde çalıştı. Raspberry pi arayüzünde hava sıcaklığı, yağış durumu ve rüzgar hızını görebiliyoruz. Projeyi yaparken karşılaştığım sorunlardan biri de raspberry pi için kullandığım python kodlarının büyük ölçüde hata içermesiydi. Bu yüzden arduinodan gelen verileri işlemede zaman zaman zorluk yaşadım. Malzeme listesinde opsiyonel olarak sunduğum raspberry pi’nin orijinal dokunmatik ekran  ve kasasını proje maliyeti açısından çıkarmak zorunda kaldım. Bunun yerine raspberry pi çalışır durumdayken VNC Viewer  yardımıyla  raspberry pi masaüstüne uzaktan erişimle bağlanıyorum. Böylece istediğim zaman bilgisayardan da hava istasyonu verilerini kontrol edebiliyorum. Sonuç olarak proje hala geliştirilebilir bir durumda  fakat şu anki haliyle de sorunsuz bir şekilde çalışmakta. 
-
-
-  
+Arduino successfully transmitted data to the Raspberry Pi. However, due to my inability to solder the BMP180 pressure sensor, I could not retrieve pressure data for now. Nonetheless, the project functioned smoothly. The Raspberry Pi interface displays temperature, precipitation, and wind speed. One challenge I encountered during the project was the presence of numerous errors in the Python code used for the Raspberry Pi. This occasionally made it challenging to process data from the Arduino. To manage project costs, I removed the optional Raspberry Pi original touchscreen and case from the materials list. Instead, I use VNC Viewer to remotely access the Raspberry Pi desktop while it is operational. This allows me to check weather station data from my computer at any time. In conclusion, the project is still in a state where it can be further developed, but it currently operates smoothly.
